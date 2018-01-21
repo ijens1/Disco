@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">Disco</string>
+    <string name="fragment_food_preferences_prompt">Please enter the kinds of foods you would like to try (Japanese, Indian, Italian, etc.)</string>
+    <string-array
+        name="ethnic_restaurant_types">
+        <item>Chinese</item>
+        <item>Cuban</item>
+        <item>Czech</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Greek</item>
+        <item>Haitian</item>
+        <item>Hungarian</item>
+        <item>Indian</item>
+        <item>Indonesian</item>
+        <item>Irish</item>
+        <item>Israeli</item>
+        <item>Italian</item>
+        <item>Japanese</item>
+        <item>Jewish</item>
+        <item>Korean</item>
+        <item>Lebanese</item>
+        <item>Mexican</item>
+        <item>New American</item>
+        <item>Pakistani</item>
+        <item>Polish</item>
+        <item>Russian</item>
+        <item>Danish</item>
+        <item>Norwegian</item>
+        <item>Swedish</item>
+        <item>Scottish</item>
+        <item>Spanish</item>
+        <item>Thai</item>
+        <item>Turkish</item>
+        <item>Ukrainian</item>
+        <item>Vietnamese</item>
+    </string-array>
 </resources>

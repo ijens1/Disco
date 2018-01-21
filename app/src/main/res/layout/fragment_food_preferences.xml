@@ -1,0 +1,16 @@
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/food_preferences"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    class="me.isaacdjl.disco.ui.intro.FoodPreferencesFragment">
+
+   <TextView android:text="@string/fragment_food_preferences_prompt"/>
+
+   <com.pchmn.materialchips.ChipsInput
+       android:id="@+id/input_chips_food_preferences"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:hint="Enter an ethnic food type"/>
+
+</fragment>
