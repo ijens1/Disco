@@ -2,7 +2,7 @@
     <string name="app_name">Disco</string>
     <string name="fragment_food_preferences_prompt">Please enter the kinds of foods you would like to try (Japanese, Indian, Italian, etc.)</string>
     <string-array
-        name="ethnic_restaurant_types">
+        name="restaurant_types">
         <item>Chinese</item>
         <item>Cuban</item>
         <item>Czech</item>

@@ -1,0 +1,7 @@
+Next Step:
+Move restaurant types to database created on first run
+
+Complete datamodel and view model for intro activity
+
+Generate the suggestion list for chips input
+
