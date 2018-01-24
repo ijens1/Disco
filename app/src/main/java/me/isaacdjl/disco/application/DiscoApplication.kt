@@ -14,10 +14,7 @@ import me.isaacdjl.disco.dagger.DaggerAppComponent
 
 class DiscoApplication : Application() {
 
-    /// Need to provide companion object to be able to access component from non-activity classes
-    companion object {
-        lateinit var discoComponent: AppComponent
-    }
+    lateinit var discoComponent: AppComponent
 
     private fun initDagger(app: DiscoApplication): AppComponent =
             DaggerAppComponent.builder()
