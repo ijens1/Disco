@@ -1,6 +1,7 @@
-package me.isaacdjl.disco.dagger
+package me.isaacdjl.disco.di
 
 import android.app.Application
+import dagger.Module
 import dagger.Provides
 import me.isaacdjl.disco.ui.intro.IntroDataModelImpl
 import me.isaacdjl.disco.ui.intro.IntroDataModelInterface
@@ -11,8 +12,6 @@ import javax.inject.Singleton
  *
  * @author: Isaac Jensen-Large
  */
+@Module
 class IntroDataModelModule(private val app: Application) {
-    @Provides
-    @Singleton
-    fun provideIntroDataModel(): IntroDataModelInterface = IntroDataModelImpl(app)
 }

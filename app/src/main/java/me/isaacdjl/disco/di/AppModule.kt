@@ -1,9 +1,10 @@
-package me.isaacdjl.disco.dagger
+package me.isaacdjl.disco.di
 
 import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import me.isaacdjl.disco.application.DiscoApplication
 import javax.inject.Singleton
 
 /**
@@ -14,7 +15,4 @@ import javax.inject.Singleton
 
 @Module
 class AppModule(private val app: Application) {
-    @Provides
-    @Singleton
-    fun provideContext(): Context = app
 }

@@ -1,9 +1,15 @@
 package me.isaacdjl.disco.application
 
+import android.app.Activity
 import android.app.Application
-import me.isaacdjl.disco.dagger.AppComponent
-import me.isaacdjl.disco.dagger.AppModule
-import me.isaacdjl.disco.dagger.DaggerAppComponent
+import android.support.v7.app.AppCompatActivity
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import me.isaacdjl.disco.di.AppModule
+import me.isaacdjl.disco.di.DaggerAppComponent
+import me.isaacdjl.disco.di.IntroDataModelModule
+import javax.inject.Inject
 
 /**
  * Definition of our application that can supply context to non-activity classes such as
@@ -12,17 +18,21 @@ import me.isaacdjl.disco.dagger.DaggerAppComponent
  * @author
  */
 
-class DiscoApplication : Application() {
+class DiscoApplication : Application(), HasActivityInjector {
 
-    lateinit var discoComponent: AppComponent
-
-    private fun initDagger(app: DiscoApplication): AppComponent =
-            DaggerAppComponent.builder()
-                    .appModule(AppModule(app))
-                    .build()
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
-        discoComponent = initDagger(this)
+
+        DaggerAppComponent.builder()
+                .application(this)
+                .introDataModelModule(IntroDataModelModule(this))
+                .appModule(AppModule(this))
+                .build()
+                .inject(this)
     }
+
+    override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 }
