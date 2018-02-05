@@ -6,11 +6,13 @@ import me.isaacdjl.disco.ui.intro.MainIntroActivity
 
 /**
  * Binds all subcomponents in the app
+ *
+ * @author Isaac Jensen-Large
  */
 
 @Module
 abstract class BuildersModule {
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = arrayOf(IntroModule::class))
     abstract fun bindMainIntroActivity(): MainIntroActivity
 }

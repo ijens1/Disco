@@ -16,7 +16,6 @@ import dagger.android.support.AndroidSupportInjectionModule
 
 @Singleton
 @Component(modules = arrayOf(AppModule::class,
-        IntroDataModelModule::class,
         BuildersModule::class,
         AndroidSupportInjectionModule::class))
 interface AppComponent {
@@ -24,10 +23,6 @@ interface AppComponent {
     interface Builder {
         @BindsInstance
         fun application(application: DiscoApplication): Builder
-        @BindsInstance
-        fun introDataModelModule(introDataModelModule: IntroDataModelModule): Builder
-        @BindsInstance
-        fun appModule(appModule: AppModule): Builder
         fun build(): AppComponent
     }
     fun inject(application: DiscoApplication)

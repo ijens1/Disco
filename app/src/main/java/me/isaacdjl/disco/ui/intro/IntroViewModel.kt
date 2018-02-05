@@ -2,16 +2,21 @@ package me.isaacdjl.disco.ui.intro
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import me.isaacdjl.disco.data.repository.Repository
 import javax.inject.Inject
 
-class IntroViewModel @Inject constructor(var dataModel: IntroDataModelInterface): ViewModel() {
-    private var restaurantTypes: MutableLiveData<Array<String>>? = null
+/**
+ * Handles manipulation of data for the intro activity ui controller
+ *
+ * @author Isaac Jensen-Large
+ */
+class IntroViewModel(val repository: Repository): ViewModel() {
+    private var restaurantTypes: Array<String>? = null
 
-    fun retrieveRestaurantTypes(): MutableLiveData<Array<String>> {
-        if (restaurantTypes == null) {
-            restaurantTypes = dataModel.retrieveRestaurantTypes()
+    fun retrieveRestaurantTypes(): Array<String>{
+        if (null == restaurantTypes){
+            restaurantTypes = repository.retrieveRestaurantTypes()
         }
         return restaurantTypes!!
     }
-
 }
