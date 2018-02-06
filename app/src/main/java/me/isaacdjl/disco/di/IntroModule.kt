@@ -6,7 +6,7 @@ import me.isaacdjl.disco.ViewModelFactory
 import me.isaacdjl.disco.application.DiscoApplication
 import me.isaacdjl.disco.data.repository.Repository
 import me.isaacdjl.disco.data.repository.RepositoryImpl
-import javax.inject.Singleton
+import me.isaacdjl.disco.ui.intro.IntroActivityScope
 
 /**
  * Defines intro specific dependencies here
@@ -18,10 +18,10 @@ import javax.inject.Singleton
 class IntroModule {
 
     @Provides
-    @Singleton
+    @IntroActivityScope
     fun provideRepository(app: DiscoApplication): Repository = RepositoryImpl(app)
 
     @Provides
-    @Singleton
+    @IntroActivityScope
     fun provideViewModelFactory(repository: Repository): ViewModelFactory = ViewModelFactory(repository)
 }

@@ -3,6 +3,7 @@ package me.isaacdjl.disco.ui.intro
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.support.v4.app.FragmentActivity
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import dagger.android.AndroidInjection
 import me.isaacdjl.disco.ViewModelFactory
@@ -12,9 +13,9 @@ import javax.inject.Inject
 /**
  * The intro activity that runs the intro slides to retrieve preferences from the user
  *
- * @author: Isaac Jensen-Large
+ * @author Isaac Jensen-Large
  */
-class MainIntroActivity : IntroActivity(){
+class MainIntroActivity : IntroActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 

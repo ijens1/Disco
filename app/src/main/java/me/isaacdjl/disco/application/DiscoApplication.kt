@@ -1,11 +1,14 @@
+
 package me.isaacdjl.disco.application
 
 import android.app.Activity
 import android.app.Application
+import android.app.Fragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import me.isaacdjl.disco.di.DaggerAppComponent
+import dagger.android.HasFragmentInjector
+import me.isaacdjl.disco.di.DaggerDiscoAppComponent
 import javax.inject.Inject
 
 /**
@@ -15,19 +18,23 @@ import javax.inject.Inject
  * @author
  */
 
-class DiscoApplication : Application(), HasActivityInjector {
+class DiscoApplication : Application(), HasActivityInjector, HasFragmentInjector {
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    lateinit var dispatchingAndroidActivityInjector: DispatchingAndroidInjector<Activity>
+
+    @Inject
+    lateinit var dispatchingAndroidFragmentInjector: DispatchingAndroidInjector<Fragment>
 
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent.builder()
+        DaggerDiscoAppComponent.builder()
                 .application(this)
                 .build()
                 .inject(this)
     }
 
-    override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
+    override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidActivityInjector
+    override fun fragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidFragmentInjector
 }
