@@ -3,6 +3,7 @@
     package="me.isaacdjl.disco">
 
     <application
+        android:fullBackupContent="@xml/backup_rules"
         android:name=".application.DiscoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

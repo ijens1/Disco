@@ -9,6 +9,7 @@ import com.pchmn.materialchips.model.ChipInterface
  *
  * @author Isaac Jensen-Large
  */
+
 class FoodPreferenceChip(val id: Int, val name: String) : ChipInterface {
 
     override fun getId(): Any {
@@ -19,10 +20,16 @@ class FoodPreferenceChip(val id: Int, val name: String) : ChipInterface {
         return name;
     }
 
-    override fun getAvatarDrawable(): Drawable {
-        return Drawable.createFromPath(null);
+    /**
+     * Possible cause for NPEs here, although I've set the chips input to not use an avatar icon
+    */
+    override fun getAvatarDrawable(): Drawable? {
+        return null
     }
 
+    /**
+     * See message above previous function about possible NPEs
+     */
     override fun getAvatarUri(): Uri {
         return Uri.EMPTY;
     }

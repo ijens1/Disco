@@ -14,5 +14,5 @@ import javax.inject.Singleton
  */
 
 @Module
-class AppModule(private val app: Application) {
+class DiscoAppModule(private val app: Application) {
 }

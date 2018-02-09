@@ -11,10 +11,10 @@ import me.isaacdjl.disco.application.DiscoApplication
  * @author Isaac Jensen-Large
  */
 
-@Component(modules = arrayOf(AndroidSupportInjectionModule::class,
-        AppModule::class,
-        BuildersModule::class))
-abstract interface DiscoAppComponent {
+@Component(modules = [AndroidSupportInjectionModule::class,
+        DiscoAppModule::class,
+        BuildersModule::class])
+interface DiscoAppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance

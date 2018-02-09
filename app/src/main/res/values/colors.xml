@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#FFA000</color>
+    <color name="colorPrimaryLight">#FFFD61</color>
+    <color name="colorPrimaryDark">#C67100</color>
+    <color name="colorSecondary">#FF6F00</color>
+    <color name="colorSecondaryLight">#FFA040</color>
+    <color name="colorSecondaryDark">#C43E00</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="colorAccent">#26C6DA</color>
+    <color name="colorFoodPrefSlideBackground">#FFCA28</color>
+    <color name="colorFoodPrefSlideBackgroundDark">#C79A00</color>
+    <color name="colorFoodPrefSlideBackgroundLight">#FFFD61</color>
+    <color name="foodPrefSlideTextColor">#000000</color>
+    <color name="foodPrefSlideHintColor">#66000000</color>
 </resources>

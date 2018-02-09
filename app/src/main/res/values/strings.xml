@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Disco</string>
-    <string name="fragment_food_preferences_prompt">Please enter the kinds of foods you would like to try (Japanese, Indian, Italian, etc.)</string>
+    <string name="fragment_food_preferences_prompt">Let Disco know what kind of foods you\'d like to try</string>
+    <string name="fragment_food_preferences_title">Pick Your Eats</string>
     <string-array
         name="restaurant_types">
         <item>Chinese</item>
