@@ -21,12 +21,12 @@ import javax.inject.Inject
  * @author Isaac Jensen-Large
  */
 
-class FoodPreferencesFragment : SlideFragment(){
+class FoodPreferencesSlideFragment : SlideFragment(){
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    lateinit var foodPreferenceChips: ArrayList<FoodPreferenceChip>
+    lateinit var allFoodPreferenceChips: ArrayList<FoodPreferenceChip>
 
     lateinit var introViewModel: IntroViewModel
 
@@ -43,7 +43,7 @@ class FoodPreferencesFragment : SlideFragment(){
         // Retrieve the viewModel
         introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
 
-        foodPreferenceChips = introViewModel.retrieveFoodPreferenceChips()
+        allFoodPreferenceChips = introViewModel.retrieveAllFoodPreferenceChips()
 
         userFoodPreferences = introViewModel.retrieveUserFoodPreferences()
 
@@ -54,7 +54,7 @@ class FoodPreferencesFragment : SlideFragment(){
         super.onViewCreated(view, savedInstanceState)
 
          // Synthetic property
-        foodPreferencesChipsInput.filterableList= foodPreferenceChips
+        foodPreferencesChipsInput.filterableList= allFoodPreferenceChips
 
         // Initialize the list of user preferences if they have already selected some
         for (userFoodPreference in userFoodPreferences) {
@@ -63,18 +63,25 @@ class FoodPreferencesFragment : SlideFragment(){
 
         // Make sure to keep track of changes in viewModel
         foodPreferencesChipsInput.addChipsListener(object : ChipsInput.ChipsListener{
-            override fun onChipAdded(p0: ChipInterface?, p1: Int) {
-                if (p0 != null)
-                    introViewModel.addUserFoodPreference(p0)
+            override fun onChipAdded(chipAdded: ChipInterface?, p1: Int) {
+                if (chipAdded != null) {
+                    introViewModel.addUserFoodPreference(chipAdded)
+                    userFoodPreferences.add(chipAdded)
+                }
             }
 
-            override fun onChipRemoved(p0: ChipInterface?, p1: Int) {
-                if (p0 != null)
-                    introViewModel.removeUserFoodPreference(p0)
+            override fun onChipRemoved(chipRemoved: ChipInterface?, p1: Int) {
+                if (chipRemoved != null) {
+                    introViewModel.removeUserFoodPreference(chipRemoved)
+                    userFoodPreferences.remove(chipRemoved)
+                }
             }
 
             override fun onTextChanged(p0: CharSequence?) {}
         })
+    }
 
+    override fun canGoForward(): Boolean {
+        return (::userFoodPreferences.isInitialized && userFoodPreferences.size > 0)
     }
 }

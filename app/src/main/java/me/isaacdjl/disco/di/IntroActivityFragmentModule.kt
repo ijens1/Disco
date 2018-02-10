@@ -2,7 +2,7 @@ package me.isaacdjl.disco.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import me.isaacdjl.disco.ui.intro.FoodPreferencesFragment
+import me.isaacdjl.disco.ui.intro.FoodPreferencesSlideFragment
 
 /**
  * Module to assure generated subcomponents of the intro fragments are subcomponents of intro activity
@@ -14,5 +14,5 @@ import me.isaacdjl.disco.ui.intro.FoodPreferencesFragment
 @Module
 abstract class IntroActivityFragmentModule {
     @ContributesAndroidInjector
-    abstract fun bindFoodPreferenceFragment(): FoodPreferencesFragment
+    abstract fun bindFoodPreferenceFragment(): FoodPreferencesSlideFragment
 }

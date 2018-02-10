@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
         android:text="@string/fragment_food_preferences_title"
         android:textAlignment="center"
         android:textColor="@color/foodPrefSlideTextColor"
@@ -19,25 +18,59 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.199"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/foodPrefTopPanelGuideline" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/fragment_food_preferences_prompt"
         android:textAlignment="center"
         android:textColor="@color/foodPrefSlideHintColor"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/foodPrefBottomPanelGuideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.887"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foodPreferencesChipsInput" />
+        app:layout_constraintStart_toStartOf="@+id/foodPrefHalfGuideline" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="112dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_restaurant_round"
+        app:layout_constraintBottom_toTopOf="@+id/foodPrefBottomPanelGuideline"
+        tools:layout_editor_absoluteX="120dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_rice_round"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="63dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_loaf_round"
+        tools:layout_editor_absoluteX="220dp"
+        tools:layout_editor_absoluteY="149dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_pizza_round"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="149dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_brochettes_round"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="235dp" />
+
 
     <com.pchmn.materialchips.ChipsInput
         android:id="@+id/foodPreferencesChipsInput"
@@ -59,6 +92,27 @@
         app:maxRows="3"
         app:showChipDetailed="false"
         app:textColor="@color/foodPrefSlideTextColor" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/foodPrefHalfGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/foodPrefTopPanelGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.19" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/foodPrefBottomPanelGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
 
 
 </android.support.constraint.ConstraintLayout>

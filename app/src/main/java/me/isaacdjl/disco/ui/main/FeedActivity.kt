@@ -20,12 +20,5 @@ class FeedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
-
-        // If the user opens the app for the first time, then we director them to the intro
-        val sharedPreferences: SharedPreferences = this.getSharedPreferences("user_history", MODE_PRIVATE)
-        if (sharedPreferences.getBoolean("first_open", true)) {
-            val openIntroIntent: Intent = Intent(this, MainIntroActivity::class.java)
-            startActivity(openIntroIntent)
-        }
     }
 }

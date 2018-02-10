@@ -21,7 +21,7 @@ class IntroViewModel(val repository: Repository): ViewModel() {
     // Stored user data
     lateinit private var userFoodPreferences: ArrayList<ChipInterface>
 
-    fun retrieveFoodPreferenceChips(): ArrayList<FoodPreferenceChip>{
+    fun retrieveAllFoodPreferenceChips(): ArrayList<FoodPreferenceChip>{
         if (::foodPreferenceChips.isInitialized) {
             return foodPreferenceChips
         }
