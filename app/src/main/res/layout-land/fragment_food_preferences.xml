@@ -6,92 +6,108 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/foodPrefsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/fragment_food_preferences_title"
         android:textAlignment="center"
-        android:textColor="@color/foodPrefSlideTextColor"
+        android:textColor="@color/slideTitleColor"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintEnd_toStartOf="@id/foodPrefHalfGuideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/foodPrefTopPanelGuideline" />
+        app:layout_constraintTop_toTopOf="@id/foodPrefTopPanelGuideline" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/foodPrefsHint"
         android:layout_width="256dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/fragment_food_preferences_prompt"
         android:textAlignment="center"
-        android:textColor="@color/foodPrefSlideHintColor"
+        android:textColor="@color/slideHintColor"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/foodPrefBottomPanelGuideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/foodPrefHalfGuideline" />
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="@id/foodPrefHalfGuideline"
+        app:layout_constraintTop_toTopOf="@id/foodPrefBottomPanelGuideline" />
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="112dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/foodPrefsRestaurantIcon"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:src="@mipmap/ic_restaurant_round"
-        app:layout_constraintBottom_toTopOf="@+id/foodPrefBottomPanelGuideline"
-        tools:layout_editor_absoluteX="120dp" />
+        app:layout_constraintBottom_toTopOf="@id/foodPrefBottomPanelGuideline"
+        app:layout_constraintEnd_toStartOf="@id/foodPrefHalfGuideline"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
+        android:id="@+id/foodPrefsRiceIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_rice_round"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="63dp" />
+        app:layout_constraintBottom_toTopOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintEnd_toStartOf="@id/foodPrefHalfGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/foodPrefsTitle"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
+        android:id="@+id/foodPrefsLoafIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_loaf_round"
-        tools:layout_editor_absoluteX="220dp"
-        tools:layout_editor_absoluteY="149dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/foodPrefHalfGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
+        android:id="@+id/foodPrefsPizzaIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_pizza_round"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="149dp" />
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="149dp"
+        app:layout_constraintTop_toTopOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintBottom_toBottomOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintEnd_toStartOf="@id/foodPrefsRestaurantIcon"/>
 
     <ImageView
+        android:id="@+id/foodPrefsBrochettesIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_brochettes_round"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="235dp" />
+        tools:layout_editor_absoluteX="186dp"
+        tools:layout_editor_absoluteY="141dp"
+        app:layout_constraintBottom_toBottomOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintTop_toTopOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintStart_toEndOf="@id/foodPrefsRestaurantIcon"/>
 
 
     <com.pchmn.materialchips.ChipsInput
         android:id="@+id/foodPreferencesChipsInput"
         android:layout_width="256dp"
         android:layout_height="4dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
         app:chip_backgroundColor="@color/colorFoodPrefSlideBackgroundLight"
         app:chip_deletable="true"
         app:chip_hasAvatarIcon="false"
         app:chip_labelColor="@color/primaryTextColor"
         app:hint="Enter a food type"
-        app:hintColor="@color/foodPrefSlideHintColor"
+        app:hintColor="@color/slideHintColor"
+        app:layout_constraintBottom_toTopOf="@id/foodPrefBottomPanelGuideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.887"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/foodPrefHalfGuideline"
+        app:layout_constraintTop_toTopOf="@id/foodPrefTopPanelGuideline"
         app:maxRows="3"
         app:showChipDetailed="false"
-        app:textColor="@color/foodPrefSlideTextColor" />
+        app:textColor="@color/slideTitleColor" />
 
     <android.support.constraint.Guideline
         android:id="@+id/foodPrefHalfGuideline"
@@ -105,14 +121,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.19" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <android.support.constraint.Guideline
         android:id="@+id/foodPrefBottomPanelGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.71" />
 
 
 </android.support.constraint.ConstraintLayout>

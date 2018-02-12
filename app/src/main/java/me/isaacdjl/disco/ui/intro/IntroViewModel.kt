@@ -58,4 +58,8 @@ class IntroViewModel(val repository: Repository): ViewModel() {
         userFoodPreferences.remove(chip)
     }
 
+    fun userHasFoodPreferences(): Boolean {
+        return (::userFoodPreferences.isInitialized && userFoodPreferences.size > 0)
+    }
+
 }

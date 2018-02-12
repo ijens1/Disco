@@ -3,6 +3,10 @@
     <string name="fragment_food_preferences_prompt">Let Disco know what kind of foods you\'d like to try (maximum three rows of tags)</string>
     <string name="fragment_food_preferences_title">Pick Your Eats</string>
     <string name="OK">OK</string>
+    <string name="locationPrefTitle">Pick Your Location</string>
+    <string name="locationPrefHint">Tell Disco where you\'d like to start your discoveries</string>
+    <string name="locationPermissionSlideTitle">Disco Needs Your Location</string>
+    <string name="locationPermissionSlideDescription">Disco needs your location in order to be able to direct you to your eats</string>
     <string-array
         name="restaurant_types">
         <item>Chinese</item>

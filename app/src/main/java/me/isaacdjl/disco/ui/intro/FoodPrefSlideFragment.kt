@@ -21,7 +21,7 @@ import javax.inject.Inject
  * @author Isaac Jensen-Large
  */
 
-class FoodPreferencesSlideFragment : SlideFragment(){
+class FoodPrefSlideFragment : SlideFragment(){
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -83,5 +83,9 @@ class FoodPreferencesSlideFragment : SlideFragment(){
 
     override fun canGoForward(): Boolean {
         return (::userFoodPreferences.isInitialized && userFoodPreferences.size > 0)
+    }
+
+    override fun canGoBackward(): Boolean {
+        return false
     }
 }

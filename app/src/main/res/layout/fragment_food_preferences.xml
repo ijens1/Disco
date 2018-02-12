@@ -7,26 +7,26 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/foodPrefsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fragment_food_preferences_title"
         android:textAlignment="center"
-        android:textColor="@color/foodPrefSlideTextColor"
+        android:textColor="@color/slideTitleColor"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/foodPrefTitleGuideline" />
+        app:layout_constraintTop_toTopOf="@id/foodPrefTitleGuideline" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/foodPrefsHint"
         android:layout_width="256dp"
         android:layout_height="wrap_content"
         android:text="@string/fragment_food_preferences_prompt"
         android:textAlignment="center"
-        android:textColor="@color/foodPrefSlideHintColor"
+        android:textColor="@color/slideHintColor"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/foodPrefHintGuideline"
+        app:layout_constraintBottom_toTopOf="@id/foodPrefHintGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -41,65 +41,65 @@
         app:chip_hasAvatarIcon="false"
         app:chip_labelColor="@color/primaryTextColor"
         app:hint="Enter a food type"
-        app:hintColor="@color/foodPrefSlideHintColor"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:hintColor="@color/slideHintColor"
+        app:layout_constraintBottom_toTopOf="@id/foodPrefsRiceIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@id/foodPrefsTitle"
         app:layout_constraintVertical_bias="0.75"
         app:maxRows="3"
         app:showChipDetailed="false"
-        app:textColor="@color/foodPrefSlideTextColor" />
+        app:textColor="@color/slideTitleColor" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/foodPrefsRestaurantIcon"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:src="@mipmap/ic_restaurant_round"
-        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        app:layout_constraintBottom_toTopOf="@id/foodPrefsLoafIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/foodPrefsPizzaIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_pizza_round"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintEnd_toStartOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintTop_toTopOf="@id/foodPrefsRestaurantIcon" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/foodPrefsBrochettesIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_brochettes_round"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintStart_toEndOf="@id/foodPrefsRestaurantIcon"
+        app:layout_constraintTop_toTopOf="@id/foodPrefsRestaurantIcon" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/foodPrefsRiceIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:src="@mipmap/ic_rice_round"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@id/foodPrefsRestaurantIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/foodPrefsLoafIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:src="@mipmap/ic_loaf_round"
-        app:layout_constraintBottom_toTopOf="@+id/foodPrefIconsGuideline"
+        app:layout_constraintBottom_toTopOf="@id/foodPrefIconsGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
