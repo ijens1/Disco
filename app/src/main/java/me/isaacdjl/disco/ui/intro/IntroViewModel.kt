@@ -3,6 +3,10 @@ package me.isaacdjl.disco.ui.intro
 import android.arch.lifecycle.ViewModel
 import com.pchmn.materialchips.model.Chip
 import com.pchmn.materialchips.model.ChipInterface
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import me.isaacdjl.disco.data.repository.Repository
 
 /**
@@ -20,6 +24,10 @@ class IntroViewModel(val repository: Repository): ViewModel() {
 
     // Stored user data
     lateinit private var userFoodPreferences: ArrayList<ChipInterface>
+
+    // RX stuff
+    private var compositeDisposable = CompositeDisposable()
+
 
     fun retrieveAllFoodPreferenceChips(): ArrayList<FoodPreferenceChip>{
         if (::foodPreferenceChips.isInitialized) {

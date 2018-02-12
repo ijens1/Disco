@@ -17,6 +17,7 @@ import me.isaacdjl.disco.application.DiscoApplication
 interface DiscoAppComponent {
     @Component.Builder
     interface Builder {
+        fun discoAppModule(discoAppModule: DiscoAppModule): Builder
         @BindsInstance
         fun application(application: DiscoApplication): Builder
         fun build(): DiscoAppComponent

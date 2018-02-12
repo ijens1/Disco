@@ -10,6 +10,7 @@ import dagger.android.HasActivityInjector
 import dagger.android.HasFragmentInjector
 import dagger.android.support.HasSupportFragmentInjector
 import me.isaacdjl.disco.di.DaggerDiscoAppComponent
+import me.isaacdjl.disco.di.DiscoAppModule
 import javax.inject.Inject
 
 /**
@@ -28,6 +29,7 @@ class DiscoApplication : Application(), HasActivityInjector{
         super.onCreate()
 
         DaggerDiscoAppComponent.builder()
+                .discoAppModule(DiscoAppModule(this))
                 .application(this)
                 .build()
                 .inject(this)
