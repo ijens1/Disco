@@ -82,7 +82,7 @@ class FoodPrefSlideFragment : SlideFragment(){
     }
 
     override fun canGoForward(): Boolean {
-        return (::userFoodPreferences.isInitialized && userFoodPreferences.size > 0)
+       return (::userFoodPreferences.isInitialized && userFoodPreferences.size > 0)
     }
 
     override fun canGoBackward(): Boolean {

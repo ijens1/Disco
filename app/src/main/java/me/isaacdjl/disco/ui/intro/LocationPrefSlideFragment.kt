@@ -3,14 +3,23 @@ package me.isaacdjl.disco.ui.intro
 import android.Manifest
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.location.places.Place
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment
+import com.google.android.gms.location.places.ui.PlaceSelectionListener
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.heinrichreimersoftware.materialintro.app.SlideFragment
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_location_preference.*
@@ -25,14 +34,18 @@ import javax.inject.Inject
  * @author Isaac Jensen-Large
  */
 
-class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback {
+class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelectionListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     lateinit var introViewModel: IntroViewModel
 
+    var currentUserMarker: Marker? = null
+
     var map: GoogleMap? = null
+
+    var mapIsReady: Boolean = false;
 
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
@@ -55,6 +68,10 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback {
         locationPrefMapView.onCreate(savedInstanceState)
 
         locationPrefMapView.getMapAsync(this)
+
+        val locationPrefAutocompleteFragment = activity?.fragmentManager?.findFragmentById(R.id.locationPrefPlacesAutocompleteFrag) as PlaceAutocompleteFragment?
+
+        locationPrefAutocompleteFragment?.setOnPlaceSelectedListener(this)
     }
 
     override fun canGoBackward(): Boolean {
@@ -73,5 +90,44 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback {
             map?.isMyLocationEnabled = true
         }
         locationPrefMapView.onResume()
+
+        map?.setOnMapClickListener { object: GoogleMap.OnMapClickListener {
+            override fun onMapClick(location: LatLng?) {
+                if (null != location) {
+                    if (null != currentUserMarker) {
+                        currentUserMarker?.remove()
+                    }
+                    currentUserMarker = map?.addMarker(MarkerOptions()
+                            .position(location))
+                }
+            }
+        }}
+
+        mapIsReady = true
+    }
+
+    override fun onPlaceSelected(place: Place?) {
+        if (mapIsReady && null != place) {
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(place.latLng, 15.toFloat()))
+            if (null != currentUserMarker) {
+                currentUserMarker?.remove()
+            }
+            currentUserMarker = map?.addMarker(MarkerOptions()
+                    .position(place.latLng))
+        }
+    }
+
+    /**
+     * Place selection listener method
+     *
+     * Would normally displayer alert dialog, but fragment seems to have trouble with that since I
+     * finished the base activity in this case
+     */
+    override fun onError(place: Status?) {
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        locationPrefPlacesAutocompleteFrag?.onActivityResult(requestCode, resultCode, data)
     }
 }
