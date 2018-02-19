@@ -30,8 +30,6 @@ class FoodPrefSlideFragment : SlideFragment(){
 
     lateinit var introViewModel: IntroViewModel
 
-    lateinit var userFoodPreferences: ArrayList<ChipInterface>
-
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context);
@@ -45,8 +43,6 @@ class FoodPrefSlideFragment : SlideFragment(){
 
         allFoodPreferenceChips = introViewModel.retrieveAllFoodPreferenceChips()
 
-        userFoodPreferences = introViewModel.retrieveUserFoodPreferences()
-
         return inflater.inflate(R.layout.fragment_food_preferences, container, false)
     }
 
@@ -57,7 +53,7 @@ class FoodPrefSlideFragment : SlideFragment(){
         foodPreferencesChipsInput.filterableList= allFoodPreferenceChips
 
         // Initialize the list of user preferences if they have already selected some
-        for (userFoodPreference in userFoodPreferences) {
+        for (userFoodPreference in introViewModel.retrieveUserFoodPreferences()) {
             foodPreferencesChipsInput.addChip(userFoodPreference)
         }
 
@@ -66,14 +62,12 @@ class FoodPrefSlideFragment : SlideFragment(){
             override fun onChipAdded(chipAdded: ChipInterface?, p1: Int) {
                 if (chipAdded != null) {
                     introViewModel.addUserFoodPreference(chipAdded)
-                    userFoodPreferences.add(chipAdded)
                 }
             }
 
             override fun onChipRemoved(chipRemoved: ChipInterface?, p1: Int) {
                 if (chipRemoved != null) {
                     introViewModel.removeUserFoodPreference(chipRemoved)
-                    userFoodPreferences.remove(chipRemoved)
                 }
             }
 
@@ -82,7 +76,7 @@ class FoodPrefSlideFragment : SlideFragment(){
     }
 
     override fun canGoForward(): Boolean {
-       return (::userFoodPreferences.isInitialized && userFoodPreferences.size > 0)
+        return introViewModel.userHasFoodPreferences()
     }
 
     override fun canGoBackward(): Boolean {

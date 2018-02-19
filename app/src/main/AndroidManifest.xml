@@ -17,8 +17,8 @@
 
         <activity android:name=".ui.main.FeedActivity"/>
 
-        <activity android:name=".ui.intro.MainIntroActivity" android:theme="@style/Theme.Intro"
-            android:screenOrientation="fullSensor"/>
+        <activity android:name=".ui.intro.MainIntroActivity" android:theme="@style/Theme.Intro" android:screenOrientation="fullSensor"/>
+
 
         <activity android:name=".ui.launch.LaunchActivity">
             <intent-filter>

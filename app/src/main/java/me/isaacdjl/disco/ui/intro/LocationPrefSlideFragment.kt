@@ -14,6 +14,7 @@ import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment
 import com.google.android.gms.location.places.ui.PlaceSelectionListener
+import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -79,9 +80,14 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
     }
 
     /**
-     * Possible source of NPE here with call to getActivity here, but it should only produce null
+     * Possible source of NPE here with call to getActivity, but it should only produce null
      * if this method were to be called before the onAttach, which I don't believe is possible
      * in this case
+     *
+     * Another possible source of NPE with the map!! but it shouldn't get shut down that fast. I
+     * guess there are some edge cases where the user doesn't have enough memory to load the map
+     * and it gets taken down by android, but if that's the case, then the user shouldn't be using
+     * the app in the first place
      */
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap
@@ -91,17 +97,29 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
         }
         locationPrefMapView.onResume()
 
-        map?.setOnMapClickListener { object: GoogleMap.OnMapClickListener {
-            override fun onMapClick(location: LatLng?) {
-                if (null != location) {
-                    if (null != currentUserMarker) {
-                        currentUserMarker?.remove()
-                    }
-                    currentUserMarker = map?.addMarker(MarkerOptions()
-                            .position(location))
+        map?.setOnMapClickListener { location ->
+            if (null != location) {
+                if (null != currentUserMarker) {
+                    currentUserMarker?.remove()
                 }
+                currentUserMarker = map?.addMarker(MarkerOptions()
+                        .position(location))
+                introViewModel.changeUserLocationPreference(currentUserMarker!!.position)
             }
-        }}
+        }
+
+        map?.setOnCameraIdleListener {
+            introViewModel.changeUserCameraPosition(map!!.cameraPosition)
+        }
+
+        // Check if the user already has preferences that they are coming back to see
+        if (introViewModel.userHasCameraPosition()) {
+            map?.animateCamera(CameraUpdateFactory.newCameraPosition(introViewModel.retrieveUserCameraPosition()))
+        }
+
+        if (introViewModel.userHasLocationPreference()) {
+            map?.addMarker(MarkerOptions().position(introViewModel.retrieveUserlocationPreference()))
+        }
 
         mapIsReady = true
     }
@@ -124,10 +142,5 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
      * finished the base activity in this case
      */
     override fun onError(place: Status?) {
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        locationPrefPlacesAutocompleteFrag?.onActivityResult(requestCode, resultCode, data)
     }
 }

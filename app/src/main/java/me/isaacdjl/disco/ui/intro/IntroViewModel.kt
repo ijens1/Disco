@@ -1,12 +1,11 @@
 package me.isaacdjl.disco.ui.intro
 
 import android.arch.lifecycle.ViewModel
-import com.pchmn.materialchips.model.Chip
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.pchmn.materialchips.model.ChipInterface
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import me.isaacdjl.disco.data.repository.Repository
 
 /**
@@ -24,6 +23,10 @@ class IntroViewModel(val repository: Repository): ViewModel() {
 
     // Stored user data
     lateinit private var userFoodPreferences: ArrayList<ChipInterface>
+
+    lateinit private var userLocationPreference: LatLng
+
+    lateinit private var userCameraPosition: CameraPosition
 
     // RX stuff
     private var compositeDisposable = CompositeDisposable()
@@ -45,15 +48,17 @@ class IntroViewModel(val repository: Repository): ViewModel() {
         return foodPreferenceChips
     }
 
+
+    // USER FOOD PREFERENCES DATA
     fun retrieveUserFoodPreferences(): ArrayList<ChipInterface>{
-        if (!(::userFoodPreferences.isInitialized)) {
+        if (!userHasFoodPreferences()) {
             return ArrayList<ChipInterface>()
         }
         return userFoodPreferences
     }
 
     fun addUserFoodPreference(chip: ChipInterface) {
-        if(!(::userFoodPreferences.isInitialized)) {
+        if(!userHasFoodPreferences()) {
             userFoodPreferences = ArrayList<ChipInterface>()
         }
         userFoodPreferences.add(chip)
@@ -66,8 +71,37 @@ class IntroViewModel(val repository: Repository): ViewModel() {
         userFoodPreferences.remove(chip)
     }
 
-    fun userHasFoodPreferences(): Boolean {
-        return (::userFoodPreferences.isInitialized && userFoodPreferences.size > 0)
+    fun userHasFoodPreferences(): Boolean = (::userFoodPreferences.isInitialized && userFoodPreferences.size > 0)
+
+
+    // USER LOCATION PREFERENCE DATA
+
+    /**
+     * Only use this method after having checked that userHaslocationPreference returns true
+     */
+    fun retrieveUserlocationPreference(): LatLng {
+        if (!userHasLocationPreference()) {
+            return LatLng(0.toDouble(), 0.toDouble())
+        }
+        return userLocationPreference
     }
+
+    fun changeUserLocationPreference(latLng: LatLng) {
+        userLocationPreference = latLng
+    }
+
+    fun userHasLocationPreference(): Boolean = (::userLocationPreference.isInitialized)
+
+    fun retrieveUserCameraPosition(): CameraPosition {
+        if (!userHasCameraPosition()) {
+            return CameraPosition.Builder().target(LatLng(45.427738, -75.692607)).zoom(5.toFloat()).build()
+        }
+        return userCameraPosition
+    }
+     fun changeUserCameraPosition(cameraPosition: CameraPosition) {
+         userCameraPosition = cameraPosition
+     }
+
+    fun userHasCameraPosition(): Boolean = (::userCameraPosition.isInitialized)
 
 }
