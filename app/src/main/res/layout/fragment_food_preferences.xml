@@ -36,7 +36,7 @@
         android:layout_height="17dp"
         android:layout_marginBottom="8dp"
         android:textAlignment="center"
-        app:chip_backgroundColor="@color/colorFoodPrefSlideBackgroundLight"
+        app:chip_backgroundColor="@color/colorPrimaryLight"
         app:chip_deletable="true"
         app:chip_hasAvatarIcon="false"
         app:chip_labelColor="@color/primaryTextColor"

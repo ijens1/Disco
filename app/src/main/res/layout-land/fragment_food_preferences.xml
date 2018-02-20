@@ -95,7 +95,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        app:chip_backgroundColor="@color/colorFoodPrefSlideBackgroundLight"
+        app:chip_backgroundColor="@color/colorPrimaryLight"
         app:chip_deletable="true"
         app:chip_hasAvatarIcon="false"
         app:chip_labelColor="@color/primaryTextColor"

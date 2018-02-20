@@ -3,7 +3,6 @@ package me.isaacdjl.disco.ui.intro
 import android.Manifest
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -14,11 +13,9 @@ import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment
 import com.google.android.gms.location.places.ui.PlaceSelectionListener
-import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.heinrichreimersoftware.materialintro.app.SlideFragment
@@ -29,7 +26,7 @@ import me.isaacdjl.disco.ViewModelFactory
 import javax.inject.Inject
 
 /**
- * Fragment for second intro slide which retrieves data about user location preferences
+ * Slide Fragment which retrieves data about user location preferences
  * (i.e. where they would like to start from when going out to restaurants)
  *
  * @author Isaac Jensen-Large
@@ -70,6 +67,7 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
 
         locationPrefMapView.getMapAsync(this)
 
+        // Set up the search bar on the mapview
         val locationPrefAutocompleteFragment = activity?.fragmentManager?.findFragmentById(R.id.locationPrefPlacesAutocompleteFrag) as PlaceAutocompleteFragment?
 
         locationPrefAutocompleteFragment?.setOnPlaceSelectedListener(this)

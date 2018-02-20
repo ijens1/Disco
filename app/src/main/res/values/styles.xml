@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CustomCalendarViewHeaderTextViewAppearance" parent="TextAppearance.MaterialCalendarWidget.Header">
+        <item name="android:textColor">@color/mcv_text_date_dark</item>
+    </style>
+
+    <style name="CustomCalendarViewWeekdayTextViewAppearance" parent="TextAppearance.MaterialCalendarWidget.WeekDay">
+        <item name="android:textColor">@color/mcv_text_date_dark</item>
+    </style>
+
 </resources>

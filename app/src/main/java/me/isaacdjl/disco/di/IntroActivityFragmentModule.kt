@@ -2,6 +2,7 @@ package me.isaacdjl.disco.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import me.isaacdjl.disco.ui.intro.DateTimePrefSlideFragment
 import me.isaacdjl.disco.ui.intro.FoodPrefSlideFragment
 import me.isaacdjl.disco.ui.intro.LocationPrefSlideFragment
 
@@ -19,4 +20,7 @@ abstract class IntroActivityFragmentModule {
 
     @ContributesAndroidInjector
     abstract fun bindLocationPrefSlideFragment(): LocationPrefSlideFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindDateTimePrefSlideFragment(): DateTimePrefSlideFragment
 }

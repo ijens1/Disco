@@ -11,7 +11,6 @@
     <color name="colorAccent">#26C6DA</color>
     <color name="slidesBackground">#FFCA28</color>
     <color name="slidesBackgroundDark">#C79A00</color>
-    <color name="colorFoodPrefSlideBackgroundLight">#FFFD61</color>
     <color name="slideTitleColor">#000000</color>
     <color name="slideHintColor">#66000000</color>
 </resources>

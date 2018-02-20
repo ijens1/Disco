@@ -16,7 +16,7 @@ import me.isaacdjl.disco.ViewModelFactory
 import javax.inject.Inject
 
 /**
- * Fragment for first intro slide which retrieves data about user food preferences
+ * Slide Fragment which retrieves data about user food preferences
  *
  * @author Isaac Jensen-Large
  */

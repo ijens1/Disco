@@ -7,6 +7,8 @@
     <string name="locationPrefHint">Tell Disco where you\'d like to start your discoveries</string>
     <string name="locationPermissionSlideTitle">Disco Needs Your Location</string>
     <string name="locationPermissionSlideDescription">Disco needs your location in order to be able to direct you to your eats</string>
+    <string name="fragment_datetime_preferences_title">Pick the Times</string>
+    <string name="fragment_datetime_preferences_hint">Let Disco know when you\'d like to go out</string>
     <string-array
         name="restaurant_types">
         <item>Chinese</item>

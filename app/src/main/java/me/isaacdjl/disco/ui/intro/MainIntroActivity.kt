@@ -57,6 +57,11 @@ class MainIntroActivity : IntroActivity(), HasSupportFragmentInjector {
                 .backgroundDark(R.color.slidesBackgroundDark)
                 .fragment(LocationPrefSlideFragment())
                 .build())
+        addSlide(FragmentSlide.Builder()
+                .background(R.color.slidesBackground)
+                .backgroundDark(R.color.slidesBackgroundDark)
+                .fragment(DateTimePrefSlideFragment())
+                .build())
 
         // Make sure keyboard doesn't automatically come up
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
