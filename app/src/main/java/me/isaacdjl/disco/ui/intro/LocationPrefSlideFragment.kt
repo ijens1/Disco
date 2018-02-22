@@ -50,12 +50,15 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
         super.onAttach(context)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
-        // Retrieve the viewModel
-        introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_location_preference, container, false)
     }
@@ -112,7 +115,7 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
 
         // Check if the user already has preferences that they are coming back to see
         if (introViewModel.userHasCameraPosition()) {
-            map?.animateCamera(CameraUpdateFactory.newCameraPosition(introViewModel.retrieveUserCameraPosition()))
+            map?.moveCamera(CameraUpdateFactory.newCameraPosition(introViewModel.retrieveUserCameraPosition()))
         }
 
         if (introViewModel.userHasLocationPreference()) {
@@ -130,6 +133,8 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
             }
             currentUserMarker = map?.addMarker(MarkerOptions()
                     .position(place.latLng))
+            introViewModel.changeUserLocationPreference(currentUserMarker!!.position)
+            introViewModel.changeUserCameraPosition(map!!.cameraPosition)
         }
     }
 

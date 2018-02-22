@@ -31,8 +31,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dateTimePrefTitle"
         app:mcv_selectionColor="@color/slidesBackgroundDark"
-        app:mcv_headerTextAppearance="@style/CustomCalendarViewHeaderTextViewAppearance"
-        app:mcv_weekDayTextAppearance="@style/CustomCalendarViewWeekdayTextViewAppearance"/>
+        app:mcv_headerTextAppearance="@style/CustomCalendarViewHeaderAppearance"
+        app:mcv_weekDayTextAppearance="@style/CustomCalendarViewWeekdayAppearance"/>
 
     <TextView
         android:id="@+id/dateTimePrefHint"
@@ -53,6 +53,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_percent="0.10" />
 
 </android.support.constraint.ConstraintLayout>

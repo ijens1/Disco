@@ -35,11 +35,14 @@ class FoodPrefSlideFragment : SlideFragment(){
         super.onAttach(context);
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
-        // Retrieve the viewModel
-        introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
 
         allFoodPreferenceChips = introViewModel.retrieveAllFoodPreferenceChips()
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.heinrichreimersoftware.materialintro.app.SlideFragment
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_datetime_preferences.*
@@ -22,6 +23,10 @@ import javax.inject.Inject
  */
 class DateTimePrefSlideFragment: SlideFragment() {
 
+    enum class CalendarModResult {
+        ADD_NEW_EAT, MODIFY_OR_ADD_NEW_EAT
+    }
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -32,11 +37,14 @@ class DateTimePrefSlideFragment: SlideFragment() {
         super.onAttach(context)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
-        // Retrieve the viewModel
-        introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_datetime_preferences, container, false)
     }
@@ -45,5 +53,11 @@ class DateTimePrefSlideFragment: SlideFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         dateTimeCalendarView.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
+
+        dateTimeCalendarView.setOnDateChangedListener { widget: MaterialCalendarView, date: CalendarDay, selected: Boolean ->
+            if (selected == false) {
+                dateTimeCalendarView.setDateSelected(date, true)
+            }
+        }
     }
 }

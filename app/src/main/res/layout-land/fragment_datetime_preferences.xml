@@ -50,8 +50,8 @@
         app:layout_constraintStart_toEndOf="@id/dateTimeHalfVertGuideline"
         app:layout_constraintTop_toTopOf="parent"
         app:mcv_selectionColor="@color/slidesBackgroundDark"
-        app:mcv_headerTextAppearance="@style/CustomCalendarViewHeaderTextViewAppearance"
-        app:mcv_weekDayTextAppearance="@style/CustomCalendarViewWeekdayTextViewAppearance"/>
+        app:mcv_headerTextAppearance="@style/CustomCalendarViewHeaderAppearance"
+        app:mcv_weekDayTextAppearance="@style/CustomCalendarViewWeekdayAppearance"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/dateTimeHalfVertGuideline"
