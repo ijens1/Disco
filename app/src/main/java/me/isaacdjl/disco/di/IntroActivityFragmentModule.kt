@@ -5,6 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import me.isaacdjl.disco.ui.intro.DateTimePrefSlideFragment
 import me.isaacdjl.disco.ui.intro.FoodPrefSlideFragment
 import me.isaacdjl.disco.ui.intro.LocationPrefSlideFragment
+import me.isaacdjl.disco.ui.intro.TimePickerFragment
 
 /**
  * Module to assure generated subcomponents of the intro fragments are subcomponents of intro activity
@@ -23,4 +24,7 @@ abstract class IntroActivityFragmentModule {
 
     @ContributesAndroidInjector
     abstract fun bindDateTimePrefSlideFragment(): DateTimePrefSlideFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindTimerPickerFragment(): TimePickerFragment
 }

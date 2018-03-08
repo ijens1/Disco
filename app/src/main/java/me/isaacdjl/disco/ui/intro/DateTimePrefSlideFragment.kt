@@ -3,6 +3,7 @@ package me.isaacdjl.disco.ui.intro
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_datetime_preferences.*
 import me.isaacdjl.disco.R
 import me.isaacdjl.disco.ViewModelFactory
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -23,7 +25,7 @@ import javax.inject.Inject
  */
 class DateTimePrefSlideFragment: SlideFragment() {
 
-    enum class CalendarModResult {
+    enum class CalendarModificationResult {
         ADD_NEW_EAT, MODIFY_OR_ADD_NEW_EAT
     }
 
@@ -55,8 +57,14 @@ class DateTimePrefSlideFragment: SlideFragment() {
         dateTimeCalendarView.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
 
         dateTimeCalendarView.setOnDateChangedListener { widget: MaterialCalendarView, date: CalendarDay, selected: Boolean ->
-            if (selected == false) {
-                dateTimeCalendarView.setDateSelected(date, true)
+            val calendarModificationResult: CalendarModificationResult = introViewModel.handleCalendarModification(selected)
+            val newDate = Calendar.getInstance()
+            newDate.set(date.year, date.month, date.day)
+            introViewModel.setCurrentDateSelected(newDate)
+            if (calendarModificationResult == CalendarModificationResult.ADD_NEW_EAT) {
+                // Start a new dialog that allows the user add a new eat
+            } else {
+                // Start a new dialog that allows the user to add new eat or modify an existing one
             }
         }
     }

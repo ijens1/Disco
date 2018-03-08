@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.Marker
 import com.pchmn.materialchips.model.ChipInterface
 import io.reactivex.disposables.CompositeDisposable
 import me.isaacdjl.disco.data.repository.Repository
+import java.util.*
 
 /**
  * Handles manipulation of data for the intro activity ui controller
@@ -27,6 +28,10 @@ class IntroViewModel(val repository: Repository): ViewModel() {
     lateinit private var userLocationPreference: LatLng
 
     lateinit private var userCameraPosition: CameraPosition
+
+    lateinit private var currentDateSelected: Calendar
+
+    lateinit private var eatsDates: ArrayList<Calendar>
 
     // RX stuff
     private var compositeDisposable = CompositeDisposable()
@@ -104,4 +109,25 @@ class IntroViewModel(val repository: Repository): ViewModel() {
 
     fun userHasCameraPosition(): Boolean = (::userCameraPosition.isInitialized)
 
+    // USER DATETIME PREFERENCE DATA
+
+    /**
+     * Technically there could be some issues here where the proper date isn't set before the user
+     * sets the time they would like to have the current eat at, but since this method is called
+     * before the dialog is created, that should never be an issue
+     */
+    fun setCurrentDateSelected(date: Calendar) {
+        currentDateSelected = date
+    }
+
+    fun addEatDate(hourOfDay: Int, minute: Int) {
+        val newDate = Calendar.getInstance()
+        newDate.set(currentDateSelected.get(Calendar.YEAR) - 1900, currentDateSelected.get(Calendar.MONTH), currentDateSelected.get(Calendar.DAY_OF_MONTH), hourOfDay, minute)
+        eatsDates.add(newDate)
+    }
+
+    fun handleCalendarModification(selected: Boolean): DateTimePrefSlideFragment.CalendarModificationResult {
+        if (!selected) return DateTimePrefSlideFragment.CalendarModificationResult.MODIFY_OR_ADD_NEW_EAT
+        else return DateTimePrefSlideFragment.CalendarModificationResult.ADD_NEW_EAT
+    }
 }
