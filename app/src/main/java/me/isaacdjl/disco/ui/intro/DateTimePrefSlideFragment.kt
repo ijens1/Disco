@@ -39,10 +39,13 @@ class DateTimePrefSlideFragment: SlideFragment() {
         super.onAttach(context)
     }
 
+    /**
+     * Possible source of NPE here. See the whart's explanation though
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
+        introViewModel = ViewModelProviders.of(requireActivity(), viewModelFactory).get(IntroViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,13 +59,15 @@ class DateTimePrefSlideFragment: SlideFragment() {
 
         dateTimeCalendarView.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
 
-        dateTimeCalendarView.setOnDateChangedListener { widget: MaterialCalendarView, date: CalendarDay, selected: Boolean ->
+        dateTimeCalendarView.setOnDateChangedListener { _ , date: CalendarDay, selected: Boolean ->
             val calendarModificationResult: CalendarModificationResult = introViewModel.handleCalendarModification(selected)
             val newDate = Calendar.getInstance()
             newDate.set(date.year, date.month, date.day)
             introViewModel.setCurrentDateSelected(newDate)
             if (calendarModificationResult == CalendarModificationResult.ADD_NEW_EAT) {
-                // Start a new dialog that allows the user add a new eat
+                val ft = fragmentManager?.beginTransaction()
+                val newFragment = TimePickerFragment()
+                newFragment.show(ft, "timerPickerDialog")
             } else {
                 // Start a new dialog that allows the user to add new eat or modify an existing one
             }

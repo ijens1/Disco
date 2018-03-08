@@ -35,10 +35,13 @@ class FoodPrefSlideFragment : SlideFragment(){
         super.onAttach(context);
     }
 
+    /**
+     * Possible source of NPE here. See the whart's explanation on reddit.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
+        introViewModel = ViewModelProviders.of(requireActivity(), viewModelFactory).get(IntroViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -78,8 +81,16 @@ class FoodPrefSlideFragment : SlideFragment(){
         })
     }
 
+    /**
+     * For some reason the library calls the conGoForward function before it's actually required for
+     * use. So, it happens that it gets called before Dagger has had the chance to inject into the
+     * fragment. Forces check on initialization of the viewModel.
+     */
     override fun canGoForward(): Boolean {
-        return introViewModel.userHasFoodPreferences()
+        if (::introViewModel.isInitialized) {
+            return introViewModel.userHasFoodPreferences()
+        }
+        return false;
     }
 
     override fun canGoBackward(): Boolean {

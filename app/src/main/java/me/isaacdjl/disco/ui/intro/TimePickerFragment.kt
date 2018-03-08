@@ -4,10 +4,12 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.text.format.DateFormat
 import android.widget.TimePicker
+import dagger.android.support.AndroidSupportInjection
 import me.isaacdjl.disco.ViewModelFactory
 import java.util.*
 import javax.inject.Inject
@@ -24,10 +26,18 @@ class TimePickerFragment: DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
     lateinit var viewModel: IntroViewModel
 
+    override fun onAttach(context: Context?) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
+    /**
+     * Possible source of NPE here. See the whart's explanation on reddit.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory).get(IntroViewModel::class.java)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -42,4 +52,6 @@ class TimePickerFragment: DialogFragment(), TimePickerDialog.OnTimeSetListener {
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         viewModel.addEatDate(hourOfDay, minute)
     }
+
+
 }

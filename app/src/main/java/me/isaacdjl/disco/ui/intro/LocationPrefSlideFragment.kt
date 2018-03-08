@@ -50,10 +50,13 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
         super.onAttach(context)
     }
 
+    /**
+     * Possible source of NPE. See the whart's explanation for this on reddit.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        introViewModel = ViewModelProviders.of(this, viewModelFactory).get(IntroViewModel::class.java)
+        introViewModel = ViewModelProviders.of(requireActivity(), viewModelFactory).get(IntroViewModel::class.java)
     }
 
 

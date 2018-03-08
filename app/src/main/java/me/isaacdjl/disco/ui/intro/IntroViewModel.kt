@@ -123,6 +123,9 @@ class IntroViewModel(val repository: Repository): ViewModel() {
     fun addEatDate(hourOfDay: Int, minute: Int) {
         val newDate = Calendar.getInstance()
         newDate.set(currentDateSelected.get(Calendar.YEAR) - 1900, currentDateSelected.get(Calendar.MONTH), currentDateSelected.get(Calendar.DAY_OF_MONTH), hourOfDay, minute)
+        if (!::eatsDates.isInitialized) {
+            eatsDates = ArrayList<Calendar>()
+        }
         eatsDates.add(newDate)
     }
 
