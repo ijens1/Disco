@@ -3,7 +3,6 @@ package me.isaacdjl.disco.ui.intro
 import android.arch.lifecycle.ViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.pchmn.materialchips.model.ChipInterface
 import io.reactivex.disposables.CompositeDisposable
 import me.isaacdjl.disco.data.repository.Repository
@@ -31,7 +30,7 @@ class IntroViewModel(val repository: Repository): ViewModel() {
 
     lateinit private var currentDateSelected: Calendar
 
-    lateinit private var eatsDates: ArrayList<Calendar>
+    lateinit private var userEatDates: ArrayList<Calendar>
 
     // RX stuff
     private var compositeDisposable = CompositeDisposable()
@@ -120,14 +119,20 @@ class IntroViewModel(val repository: Repository): ViewModel() {
         currentDateSelected = date
     }
 
-    fun addEatDate(hourOfDay: Int, minute: Int) {
+    fun retrieveUserEatdates(): ArrayList<Calendar> {
+        return userEatDates
+    }
+
+    fun addUserEatDate(hourOfDay: Int, minute: Int) {
         val newDate = Calendar.getInstance()
         newDate.set(currentDateSelected.get(Calendar.YEAR) - 1900, currentDateSelected.get(Calendar.MONTH), currentDateSelected.get(Calendar.DAY_OF_MONTH), hourOfDay, minute)
-        if (!::eatsDates.isInitialized) {
-            eatsDates = ArrayList<Calendar>()
+        if (!::userEatDates.isInitialized) {
+            userEatDates = ArrayList<Calendar>()
         }
-        eatsDates.add(newDate)
+        userEatDates.add(newDate)
     }
+
+    fun userHasEatDates(): Boolean = (::userEatDates.isInitialized && userEatDates.size > 0)
 
     fun handleCalendarModification(selected: Boolean): DateTimePrefSlideFragment.CalendarModificationResult {
         if (!selected) return DateTimePrefSlideFragment.CalendarModificationResult.MODIFY_OR_ADD_NEW_EAT

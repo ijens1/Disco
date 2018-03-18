@@ -86,14 +86,5 @@ class FoodPrefSlideFragment : SlideFragment(){
      * use. So, it happens that it gets called before Dagger has had the chance to inject into the
      * fragment. Forces check on initialization of the viewModel.
      */
-    override fun canGoForward(): Boolean {
-        if (::introViewModel.isInitialized) {
-            return introViewModel.userHasFoodPreferences()
-        }
-        return false;
-    }
-
-    override fun canGoBackward(): Boolean {
-        return false
-    }
+    override fun canGoForward(): Boolean = (::introViewModel.isInitialized && introViewModel.userHasFoodPreferences())
 }

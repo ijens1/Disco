@@ -3,7 +3,6 @@ package me.isaacdjl.disco.ui.intro
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +58,13 @@ class DateTimePrefSlideFragment: SlideFragment() {
 
         dateTimeCalendarView.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
 
+        if (introViewModel.userHasEatDates()) {
+            val userEatDates = introViewModel.retrieveUserEatdates()
+            for (date in userEatDates) {
+                dateTimeCalendarView.setDateSelected(date, true)
+            }
+        }
+
         dateTimeCalendarView.setOnDateChangedListener { _ , date: CalendarDay, selected: Boolean ->
             val calendarModificationResult: CalendarModificationResult = introViewModel.handleCalendarModification(selected)
             val newDate = Calendar.getInstance()
@@ -73,4 +79,6 @@ class DateTimePrefSlideFragment: SlideFragment() {
             }
         }
     }
+
+    override fun canGoForward(): Boolean = (::introViewModel.isInitialized && introViewModel.userHasEatDates())
 }

@@ -2,14 +2,15 @@ package me.isaacdjl.disco.ui.intro
 
 import android.app.Dialog
 import android.app.TimePickerDialog
-import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.text.format.DateFormat
+import android.view.ContextThemeWrapper
 import android.widget.TimePicker
 import dagger.android.support.AndroidSupportInjection
+import me.isaacdjl.disco.R
 import me.isaacdjl.disco.ViewModelFactory
 import java.util.*
 import javax.inject.Inject
@@ -46,12 +47,10 @@ class TimePickerFragment: DialogFragment(), TimePickerDialog.OnTimeSetListener {
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        return TimePickerDialog(activity, this, hour, minute, DateFormat.is24HourFormat(activity))
+        return TimePickerDialog( ContextThemeWrapper(activity, R.style.MyTimePickerDialog), this, hour, minute, DateFormat.is24HourFormat(activity))
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        viewModel.addEatDate(hourOfDay, minute)
+        viewModel.addUserEatDate(hourOfDay, minute)
     }
-
-
 }

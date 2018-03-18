@@ -79,10 +79,6 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
         locationPrefAutocompleteFragment?.setOnPlaceSelectedListener(this)
     }
 
-    override fun canGoBackward(): Boolean {
-        return false
-    }
-
     /**
      * Possible source of NPE here with call to getActivity, but it should only produce null
      * if this method were to be called before the onAttach, which I don't believe is possible
@@ -146,7 +142,12 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
      *
      * Would normally displayer alert dialog, but fragment seems to have trouble with that since I
      * finished the base activity in this case
+     *
+     * When you get the api going, you should send a message to the server if the user receives
+     * a message saying the api key is expired or invalid
      */
     override fun onError(place: Status?) {
     }
+
+    override fun canGoForward(): Boolean = (::introViewModel.isInitialized && introViewModel.userHasLocationPreference())
 }
