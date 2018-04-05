@@ -43,4 +43,9 @@
         <item>Ukrainian</item>
         <item>Vietnamese</item>
     </string-array>
+    <string-array
+        name="datetime_list_dialog_options">
+        <item>View Existing Eats</item>
+        <item>Add new Eat</item>
+    </string-array>
 </resources>

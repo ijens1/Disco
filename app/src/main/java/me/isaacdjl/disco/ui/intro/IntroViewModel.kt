@@ -30,7 +30,7 @@ class IntroViewModel(val repository: Repository): ViewModel() {
 
     lateinit private var currentDateSelected: Calendar
 
-    lateinit private var userEatDates: ArrayList<Calendar>
+    lateinit private var userEatTimes: HashMap<Calendar, ArrayList<Calendar>>
 
     // RX stuff
     private var compositeDisposable = CompositeDisposable()
@@ -119,23 +119,25 @@ class IntroViewModel(val repository: Repository): ViewModel() {
         currentDateSelected = date
     }
 
-    fun retrieveUserEatdates(): ArrayList<Calendar> {
-        return userEatDates
+    fun retrieveUserEatdates(): MutableCollection<ArrayList<Calendar>> {
+        return userEatTimes.values
     }
 
     fun addUserEatDate(hourOfDay: Int, minute: Int) {
-        val newDate = Calendar.getInstance()
-        newDate.set(currentDateSelected.get(Calendar.YEAR) - 1900, currentDateSelected.get(Calendar.MONTH), currentDateSelected.get(Calendar.DAY_OF_MONTH), hourOfDay, minute)
-        if (!::userEatDates.isInitialized) {
-            userEatDates = ArrayList<Calendar>()
+        val newEatTime = Calendar.getInstance()
+        newEatTime.set(currentDateSelected.get(Calendar.YEAR) - 1900, currentDateSelected.get(Calendar.MONTH), currentDateSelected.get(Calendar.DAY_OF_MONTH), hourOfDay, minute)
+        if (!::userEatTimes.isInitialized) {
+            userEatTimes = HashMap()
         }
-        userEatDates.add(newDate)
+        if (userEatTimes.containsKey(currentDateSelected)) {
+            userEatTimes.get(currentDateSelected)?.add(newEatTime)
+        }
+        else {
+            val newEatList = ArrayList<Calendar>()
+            newEatList.add(newEatTime)
+            userEatTimes.put(currentDateSelected, newEatList)
+        }
     }
 
-    fun userHasEatDates(): Boolean = (::userEatDates.isInitialized && userEatDates.size > 0)
-
-    fun handleCalendarModification(selected: Boolean): DateTimePrefSlideFragment.CalendarModificationResult {
-        if (!selected) return DateTimePrefSlideFragment.CalendarModificationResult.MODIFY_OR_ADD_NEW_EAT
-        else return DateTimePrefSlideFragment.CalendarModificationResult.ADD_NEW_EAT
-    }
+    fun userHasEatDates(): Boolean = (::userEatTimes.isInitialized && userEatTimes.size > 0)
 }

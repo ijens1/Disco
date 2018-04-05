@@ -2,7 +2,9 @@ package me.isaacdjl.disco.ui.intro
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,23 +61,38 @@ class DateTimePrefSlideFragment: SlideFragment() {
         dateTimeCalendarView.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
 
         if (introViewModel.userHasEatDates()) {
-            val userEatDates = introViewModel.retrieveUserEatdates()
-            for (date in userEatDates) {
-                dateTimeCalendarView.setDateSelected(date, true)
+            val userEatTimes = introViewModel.retrieveUserEatdates()
+            for (datesList in userEatTimes) {
+                for (date in datesList) {
+                    dateTimeCalendarView.setDateSelected(date, true)
+                }
             }
         }
 
         dateTimeCalendarView.setOnDateChangedListener { _ , date: CalendarDay, selected: Boolean ->
-            val calendarModificationResult: CalendarModificationResult = introViewModel.handleCalendarModification(selected)
             val newDate = Calendar.getInstance()
             newDate.set(date.year, date.month, date.day)
             introViewModel.setCurrentDateSelected(newDate)
-            if (calendarModificationResult == CalendarModificationResult.ADD_NEW_EAT) {
+            if (selected) {
                 val ft = fragmentManager?.beginTransaction()
                 val newFragment = TimePickerFragment()
                 newFragment.show(ft, "timerPickerDialog")
             } else {
-                // Start a new dialog that allows the user to add new eat or modify an existing one
+                dateTimeCalendarView.setDateSelected(date, true);
+                val builder = AlertDialog.Builder(requireActivity())
+                builder.setTitle("Add new eat or view existing")
+                        .setItems(R.array.datetime_list_dialog_options, object: DialogInterface.OnClickListener {
+                            override fun onClick(dialog: DialogInterface?, which: Int) {
+                                if (0 == which) {
+                                    // View existing eats
+                                }
+                                else {
+                                    val ft = fragmentManager?.beginTransaction()
+                                    val newFragment = TimePickerFragment()
+                                    newFragment.show(ft, "timePickerDialog")
+                                }
+                            }
+                }).show();
             }
         }
     }
