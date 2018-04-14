@@ -33,14 +33,6 @@ class MainIntroActivity : IntroActivity(), HasSupportFragmentInjector {
 
         setButtonBackVisible(false)
 
-        // Gotta add this basically useless slide at the beginning.
-        // Currently there's a bug that doesn't allow the blocking of navigation on the first slide
-        addSlide(SimpleSlide.Builder()
-                .title("Welcome to Disco!")
-                .description("We're going to take you through some steps here to set up the app. Each is necessary so you can't skip any of them.")
-                .background(R.color.slidesBackground)
-                .backgroundDark(R.color.slidesBackgroundDark)
-                .build())
         addSlide(FragmentSlide.Builder()
                 .background(R.color.slidesBackground)
                 .backgroundDark(R.color.slidesBackgroundDark)

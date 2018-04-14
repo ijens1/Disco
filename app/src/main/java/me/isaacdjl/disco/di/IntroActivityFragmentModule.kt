@@ -24,7 +24,4 @@ abstract class IntroActivityFragmentModule {
 
     @ContributesAndroidInjector
     abstract fun bindTimerPickerFragment(): TimePickerFragment
-
-    @ContributesAndroidInjector
-    abstract fun bindEatsViewerFragment(): EatsViewerFragment
 }

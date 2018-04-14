@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment
 import com.google.android.gms.location.places.ui.PlaceSelectionListener
+import com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -66,17 +67,24 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
         return inflater.inflate(R.layout.fragment_location_preference, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         locationPrefMapView.onCreate(savedInstanceState)
 
         locationPrefMapView.getMapAsync(this)
 
-        // Set up the search bar on the mapview
-        val locationPrefAutocompleteFragment = activity?.fragmentManager?.findFragmentById(R.id.locationPrefPlacesAutocompleteFrag) as PlaceAutocompleteFragment?
+        var locationPrefAutocompleteFragment = childFragmentManager.findFragmentByTag("locationPrefAutocompleteFragment") as SupportPlaceAutocompleteFragment?
 
-        locationPrefAutocompleteFragment?.setOnPlaceSelectedListener(this)
+        if (locationPrefAutocompleteFragment == null) {
+            locationPrefAutocompleteFragment = SupportPlaceAutocompleteFragment()
+            val ft = childFragmentManager.beginTransaction()
+            ft.add(R.id.locationPrefPlacesAutocompleteFragContainer, locationPrefAutocompleteFragment, "locationPrefAutocompleteFragment")
+            ft.commit()
+            childFragmentManager.executePendingTransactions()
+        }
+
+        locationPrefAutocompleteFragment.setOnPlaceSelectedListener(this)
     }
 
     /**

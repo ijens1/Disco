@@ -56,15 +56,10 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/border_radius_bg"
         android:elevation="2dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/locationPrefMapView">
-
-        <fragment
-            android:id="@+id/locationPrefPlacesAutocompleteFrag"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <android.support.constraint.Guideline

@@ -74,25 +74,7 @@ class DateTimePrefSlideFragment: SlideFragment() {
             newDate.set(date.year, date.month, date.day)
             introViewModel.setCurrentDateSelected(newDate)
             if (selected) {
-                val ft = fragmentManager?.beginTransaction()
-                val newFragment = TimePickerFragment()
-                newFragment.show(ft, "timerPickerDialog")
             } else {
-                dateTimeCalendarView.setDateSelected(date, true);
-                val builder = AlertDialog.Builder(requireActivity())
-                builder.setTitle("Add new eat or view existing")
-                        .setItems(R.array.datetime_list_dialog_options, object: DialogInterface.OnClickListener {
-                            override fun onClick(dialog: DialogInterface?, which: Int) {
-                                if (0 == which) {
-                                    // View existing eats
-                                }
-                                else {
-                                    val ft = fragmentManager?.beginTransaction()
-                                    val newFragment = TimePickerFragment()
-                                    newFragment.show(ft, "timePickerDialog")
-                                }
-                            }
-                }).show();
             }
         }
     }
