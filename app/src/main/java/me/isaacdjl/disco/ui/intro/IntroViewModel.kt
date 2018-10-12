@@ -15,35 +15,28 @@ import java.util.*
  */
 class IntroViewModel(val repository: Repository): ViewModel() {
 
-    // Stored repository data
-    lateinit private var restaurantTypes: Array<String>
+    private lateinit var restaurantTypes: Array<String>
 
-    // Formatted repository dta
-    lateinit private var foodPreferenceChips: ArrayList<FoodPreferenceChip>
+    private lateinit var foodPreferenceChips: ArrayList<FoodPreferenceChip>
 
-    // Stored user data
-    lateinit private var userFoodPreferences: ArrayList<ChipInterface>
+    private lateinit var userFoodPreferences: ArrayList<String>
 
-    lateinit private var userLocationPreference: LatLng
+    private lateinit var userLocationPreference: LatLng
 
-    lateinit private var userCameraPosition: CameraPosition
+    private lateinit var userCameraPosition: CameraPosition
 
-    lateinit private var currentDateSelected: Calendar
+    private lateinit var currentDateSelected: Calendar
 
-    lateinit private var userEatTimes: HashMap<Calendar, ArrayList<Calendar>>
-
-    // RX stuff
-    private var compositeDisposable = CompositeDisposable()
-
+    private lateinit var userEatTimes: HashMap<Calendar, ArrayList<Calendar>>
 
     fun retrieveAllFoodPreferenceChips(): ArrayList<FoodPreferenceChip>{
         if (::foodPreferenceChips.isInitialized) {
             return foodPreferenceChips
         }
-        if (::restaurantTypes.isInitialized == false){
+        if (!::restaurantTypes.isInitialized){
             restaurantTypes = repository.retrieveRestaurantTypes()
         }
-        foodPreferenceChips = ArrayList<FoodPreferenceChip>()
+        foodPreferenceChips = ArrayList()
 
         for (i in restaurantTypes.indices) {
             foodPreferenceChips.add(FoodPreferenceChip(i, restaurantTypes[i]))
@@ -54,25 +47,25 @@ class IntroViewModel(val repository: Repository): ViewModel() {
 
 
     // USER FOOD PREFERENCES DATA
-    fun retrieveUserFoodPreferences(): ArrayList<ChipInterface>{
+    fun retrieveUserFoodPreferences(): ArrayList<String>{
         if (!userHasFoodPreferences()) {
-            return ArrayList<ChipInterface>()
+            return ArrayList()
         }
         return userFoodPreferences
     }
 
-    fun addUserFoodPreference(chip: ChipInterface) {
+    fun addUserFoodPreference(pref: String) {
         if(!userHasFoodPreferences()) {
-            userFoodPreferences = ArrayList<ChipInterface>()
+            userFoodPreferences = ArrayList()
         }
-        userFoodPreferences.add(chip)
+        userFoodPreferences.add(pref)
     }
 
     /**
      * This is a pretty inefficient method, but since the list of chips is small, it doesn't matter
      */
-    fun removeUserFoodPreference(chip: ChipInterface) {
-        userFoodPreferences.remove(chip)
+    fun removeUserFoodPreference(pref: String) {
+        userFoodPreferences.remove(pref)
     }
 
     fun userHasFoodPreferences(): Boolean = (::userFoodPreferences.isInitialized && userFoodPreferences.size > 0)
@@ -83,7 +76,7 @@ class IntroViewModel(val repository: Repository): ViewModel() {
     /**
      * Only use this method after having checked that userHaslocationPreference returns true
      */
-    fun retrieveUserlocationPreference(): LatLng {
+    fun retrieveUserLocationPreference(): LatLng {
         if (!userHasLocationPreference()) {
             return LatLng(0.toDouble(), 0.toDouble())
         }

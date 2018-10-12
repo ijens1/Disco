@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.places.Place
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment
 import com.google.android.gms.location.places.ui.PlaceSelectionListener
 import com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragment
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -126,7 +125,7 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
         }
 
         if (introViewModel.userHasLocationPreference()) {
-            map?.addMarker(MarkerOptions().position(introViewModel.retrieveUserlocationPreference()))
+            map?.addMarker(MarkerOptions().position(introViewModel.retrieveUserLocationPreference()))
         }
 
         mapIsReady = true

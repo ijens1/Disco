@@ -26,10 +26,6 @@ import javax.inject.Inject
  */
 class DateTimePrefSlideFragment: SlideFragment() {
 
-    enum class CalendarModificationResult {
-        ADD_NEW_EAT, MODIFY_OR_ADD_NEW_EAT
-    }
-
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -40,9 +36,6 @@ class DateTimePrefSlideFragment: SlideFragment() {
         super.onAttach(context)
     }
 
-    /**
-     * Possible source of NPE here. See the whart's explanation though
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

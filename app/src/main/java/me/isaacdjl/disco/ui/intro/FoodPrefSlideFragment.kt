@@ -26,7 +26,7 @@ class FoodPrefSlideFragment : SlideFragment(){
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    lateinit var allFoodPreferenceChips: ArrayList<FoodPreferenceChip>
+    private lateinit var allFoodPreferenceChips: ArrayList<FoodPreferenceChip>
 
     lateinit var introViewModel: IntroViewModel
 
@@ -35,9 +35,6 @@ class FoodPrefSlideFragment : SlideFragment(){
         super.onAttach(context);
     }
 
-    /**
-     * Possible source of NPE here. See the whart's explanation on reddit.
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,25 +52,25 @@ class FoodPrefSlideFragment : SlideFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-         // Synthetic property
-        foodPreferencesChipsInput.filterableList= allFoodPreferenceChips
+        foodPreferencesChipsInput.filterableList = allFoodPreferenceChips
 
         // Initialize the list of user preferences if they have already selected some
+        var i = 0;
         for (userFoodPreference in introViewModel.retrieveUserFoodPreferences()) {
-            foodPreferencesChipsInput.addChip(userFoodPreference)
+            foodPreferencesChipsInput.addChip(FoodPreferenceChip(i++, userFoodPreference))
         }
 
         // Make sure to keep track of changes in viewModel
         foodPreferencesChipsInput.addChipsListener(object : ChipsInput.ChipsListener{
             override fun onChipAdded(chipAdded: ChipInterface?, p1: Int) {
                 if (chipAdded != null) {
-                    introViewModel.addUserFoodPreference(chipAdded)
+                    introViewModel.addUserFoodPreference(chipAdded.label)
                 }
             }
 
             override fun onChipRemoved(chipRemoved: ChipInterface?, p1: Int) {
                 if (chipRemoved != null) {
-                    introViewModel.removeUserFoodPreference(chipRemoved)
+                    introViewModel.removeUserFoodPreference(chipRemoved.label)
                 }
             }
 

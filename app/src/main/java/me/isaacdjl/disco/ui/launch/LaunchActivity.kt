@@ -29,8 +29,6 @@ class LaunchActivity : AppCompatActivity(){
             startActivity(openMainIntent)
         }
 
-        // Now finish up this activity, so we don't have to deal with the user getting back here
-        // with the back button or something like that
         finish()
     }
 }

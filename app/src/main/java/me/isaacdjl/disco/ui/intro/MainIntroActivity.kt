@@ -24,14 +24,12 @@ class MainIntroActivity : IntroActivity(), HasSupportFragmentInjector {
     @Inject
     lateinit var dispatchingAndroidFragmentInjector: DispatchingAndroidInjector<Fragment>
 
-    private lateinit var introViewModel: IntroViewModel;
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this);
-        setFullscreen(true)
+        isFullscreen = true
         super.onCreate(savedInstanceState)
 
-        setButtonBackVisible(false)
+        isButtonBackVisible = false
 
         addSlide(FragmentSlide.Builder()
                 .background(R.color.slidesBackground)
