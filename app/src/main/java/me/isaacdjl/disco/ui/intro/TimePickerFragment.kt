@@ -51,6 +51,6 @@ class TimePickerFragment: DialogFragment(), TimePickerDialog.OnTimeSetListener {
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        viewModel.addUserEatDate(hourOfDay, minute)
+        viewModel.addUserEatTime(hourOfDay, minute)
     }
 }

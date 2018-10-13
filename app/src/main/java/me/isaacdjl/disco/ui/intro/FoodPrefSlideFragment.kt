@@ -26,13 +26,13 @@ class FoodPrefSlideFragment : SlideFragment(){
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var allFoodPreferenceChips: ArrayList<FoodPreferenceChip>
+    private lateinit var allFoodTypes: ArrayList<String>
 
     lateinit var introViewModel: IntroViewModel
 
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
-        super.onAttach(context);
+        super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class FoodPrefSlideFragment : SlideFragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        allFoodPreferenceChips = introViewModel.retrieveAllFoodPreferenceChips()
+        allFoodTypes = introViewModel.retrieveAllFoodTypes()
 
         return inflater.inflate(R.layout.fragment_food_preferences, container, false)
     }
@@ -52,12 +52,20 @@ class FoodPrefSlideFragment : SlideFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        foodPreferencesChipsInput.filterableList = allFoodPreferenceChips
+        // Initialize the list of possible food types the user can select
+        val allFoodChips = ArrayList<FoodPreferenceChip>()
+        var i = 0
+        for (foodType in allFoodTypes) {
+            allFoodChips.add(FoodPreferenceChip(i++, foodType))
+        }
+        foodPreferencesChipsInput.filterableList = allFoodChips
 
         // Initialize the list of user preferences if they have already selected some
-        var i = 0;
-        for (userFoodPreference in introViewModel.retrieveUserFoodPreferences()) {
-            foodPreferencesChipsInput.addChip(FoodPreferenceChip(i++, userFoodPreference))
+        introViewModel.retrieveUserFoodPreferences()?.let {
+            i = 0
+            for (userFoodPreference in it){
+                foodPreferencesChipsInput.addChip(FoodPreferenceChip(i++, userFoodPreference))
+            }
         }
 
         // Make sure to keep track of changes in viewModel
@@ -83,5 +91,5 @@ class FoodPrefSlideFragment : SlideFragment(){
      * use. So, it happens that it gets called before Dagger has had the chance to inject into the
      * fragment. Forces check on initialization of the viewModel.
      */
-    override fun canGoForward(): Boolean = (::introViewModel.isInitialized && introViewModel.userHasFoodPreferences())
+    override fun canGoForward(): Boolean = (::introViewModel.isInitialized && introViewModel.retrieveUserFoodPreferences() != null)
 }

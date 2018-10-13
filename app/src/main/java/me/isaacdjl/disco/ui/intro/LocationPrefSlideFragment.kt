@@ -50,9 +50,6 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
         super.onAttach(context)
     }
 
-    /**
-     * Possible source of NPE. See the whart's explanation for this on reddit.
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -73,8 +70,8 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
 
         locationPrefMapView.getMapAsync(this)
 
-        var locationPrefAutocompleteFragment = childFragmentManager.findFragmentByTag("locationPrefAutocompleteFragment") as SupportPlaceAutocompleteFragment?
 
+        var locationPrefAutocompleteFragment = childFragmentManager.findFragmentByTag("locationPrefAutocompleteFragment") as SupportPlaceAutocompleteFragment?
         if (locationPrefAutocompleteFragment == null) {
             locationPrefAutocompleteFragment = SupportPlaceAutocompleteFragment()
             val ft = childFragmentManager.beginTransaction()
@@ -86,61 +83,40 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
         locationPrefAutocompleteFragment.setOnPlaceSelectedListener(this)
     }
 
-    /**
-     * Possible source of NPE here with call to getActivity, but it should only produce null
-     * if this method were to be called before the onAttach, which I don't believe is possible
-     * in this case
-     *
-     * Another possible source of NPE with the map!! but it shouldn't get shut down that fast. I
-     * guess there are some edge cases where the user doesn't have enough memory to load the map
-     * and it gets taken down by android, but if that's the case, then the user shouldn't be using
-     * the app in the first place
-     */
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap
         map?.uiSettings?.isMyLocationButtonEnabled = false
-        if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             map?.isMyLocationEnabled = true
         }
         locationPrefMapView.onResume()
 
         map?.setOnMapClickListener { location ->
-            if (null != location) {
-                if (null != currentUserMarker) {
-                    currentUserMarker?.remove()
-                }
+            location?.let{
+                currentUserMarker?.remove()
                 currentUserMarker = map?.addMarker(MarkerOptions()
                         .position(location))
-                introViewModel.changeUserLocationPreference(currentUserMarker!!.position)
+                introViewModel.changeUserLocationPreference(location)
             }
         }
 
-        map?.setOnCameraIdleListener {
-            introViewModel.changeUserCameraPosition(map!!.cameraPosition)
-        }
-
         // Check if the user already has preferences that they are coming back to see
-        if (introViewModel.userHasCameraPosition()) {
-            map?.moveCamera(CameraUpdateFactory.newCameraPosition(introViewModel.retrieveUserCameraPosition()))
+        introViewModel.retrieveUserLocationPreference()?.let {
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 15f))
+            map?.addMarker(MarkerOptions().position(it))
         }
-
-        if (introViewModel.userHasLocationPreference()) {
-            map?.addMarker(MarkerOptions().position(introViewModel.retrieveUserLocationPreference()))
-        }
-
         mapIsReady = true
     }
 
     override fun onPlaceSelected(place: Place?) {
-        if (mapIsReady && null != place) {
-            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(place.latLng, 15.toFloat()))
+        if (mapIsReady && place != null) {
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(place.latLng, 15f))
             if (null != currentUserMarker) {
                 currentUserMarker?.remove()
             }
             currentUserMarker = map?.addMarker(MarkerOptions()
                     .position(place.latLng))
-            introViewModel.changeUserLocationPreference(currentUserMarker!!.position)
-            introViewModel.changeUserCameraPosition(map!!.cameraPosition)
+            introViewModel.changeUserLocationPreference(place.latLng)
         }
     }
 
@@ -156,5 +132,5 @@ class LocationPrefSlideFragment: SlideFragment(), OnMapReadyCallback, PlaceSelec
     override fun onError(place: Status?) {
     }
 
-    override fun canGoForward(): Boolean = (::introViewModel.isInitialized && introViewModel.userHasLocationPreference())
+    override fun canGoForward(): Boolean = (::introViewModel.isInitialized && introViewModel.retrieveUserLocationPreference() != null)
 }
