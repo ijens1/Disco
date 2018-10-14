@@ -1,5 +1,6 @@
 package me.isaacdjl.disco.ui.intro
-
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import me.isaacdjl.disco.data.repository.Repository
@@ -12,6 +13,8 @@ import java.util.*
  */
 class IntroViewModel(val repository: Repository): ViewModel() {
 
+    private var allFoodTypes: MutableLiveData<Array<String>> = MutableLiveData()
+
     private var userFoodPref: ArrayList<String>? = null
 
     private var userLocationPref: LatLng? = null
@@ -20,9 +23,13 @@ class IntroViewModel(val repository: Repository): ViewModel() {
 
     private var userEatTimes: HashMap<Calendar, ArrayList<Calendar>>? = null
 
-    fun retrieveAllFoodTypes(): ArrayList<String>{
-        return repository.retrieveRestaurantTypes().toCollection(ArrayList())
+    // Data will most likely come from db or network at some point
+    fun getAllFoodTypesLiveData(): LiveData<Array<String>> = allFoodTypes
+
+    fun getAllFoodTypes() {
+        allFoodTypes.postValue(repository.retrieveFoodTypes())
     }
+
     // USER FOOD PREFERENCES DATA
     fun retrieveUserFoodPreferences(): ArrayList<String>?{
         return userFoodPref

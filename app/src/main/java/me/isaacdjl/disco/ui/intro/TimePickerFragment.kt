@@ -32,9 +32,6 @@ class TimePickerFragment: DialogFragment(), TimePickerDialog.OnTimeSetListener {
         super.onAttach(context)
     }
 
-    /**
-     * Possible source of NPE here. See the whart's explanation on reddit.
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,9 +40,9 @@ class TimePickerFragment: DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
-        val calendar = Calendar.getInstance()
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
+        val currentTime = Calendar.getInstance()
+        val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val minute = currentTime.get(Calendar.MINUTE)
 
         return TimePickerDialog( ContextThemeWrapper(activity, R.style.MyTimePickerDialog), this, hour, minute, DateFormat.is24HourFormat(activity))
     }

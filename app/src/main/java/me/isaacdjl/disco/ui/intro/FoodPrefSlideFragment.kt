@@ -13,6 +13,8 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_food_preferences.*
 import me.isaacdjl.disco.R
 import me.isaacdjl.disco.ViewModelFactory
+import me.isaacdjl.disco.nonNull
+import me.isaacdjl.disco.observe
 import javax.inject.Inject
 
 /**
@@ -25,8 +27,6 @@ class FoodPrefSlideFragment : SlideFragment(){
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
-    private lateinit var allFoodTypes: ArrayList<String>
 
     lateinit var introViewModel: IntroViewModel
 
@@ -44,27 +44,27 @@ class FoodPrefSlideFragment : SlideFragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        allFoodTypes = introViewModel.retrieveAllFoodTypes()
-
         return inflater.inflate(R.layout.fragment_food_preferences, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize the list of possible food types the user can select
-        val allFoodChips = ArrayList<FoodPreferenceChip>()
-        var i = 0
-        for (foodType in allFoodTypes) {
-            allFoodChips.add(FoodPreferenceChip(i++, foodType))
+        introViewModel.getAllFoodTypesLiveData().nonNull().observe(this) { foodTypes ->
+             // Initialize the list of possible food types the user can select
+            val allFoodChips = ArrayList<FoodPreferenceChip>()
+            for ((i, foodType) in foodTypes.withIndex()) {
+                allFoodChips.add(FoodPreferenceChip(i, foodType))
+            }
+            foodPreferencesChipsInput.filterableList = allFoodChips
         }
-        foodPreferencesChipsInput.filterableList = allFoodChips
+
+        introViewModel.getAllFoodTypes()
 
         // Initialize the list of user preferences if they have already selected some
         introViewModel.retrieveUserFoodPreferences()?.let {
-            i = 0
-            for (userFoodPreference in it){
-                foodPreferencesChipsInput.addChip(FoodPreferenceChip(i++, userFoodPreference))
+            for ((i, userFoodPreference) in it.withIndex()){
+                foodPreferencesChipsInput.addChip(FoodPreferenceChip(i, userFoodPreference))
             }
         }
 

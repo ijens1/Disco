@@ -10,7 +10,7 @@ import me.isaacdjl.disco.data.database.daos.UserPrefsDao
 
 interface Repository {
 
-    fun retrieveRestaurantTypes(): Array<String>
+    fun retrieveFoodTypes(): Array<String>
 
     fun retrieveUserPrefsDao(): UserPrefsDao
 }

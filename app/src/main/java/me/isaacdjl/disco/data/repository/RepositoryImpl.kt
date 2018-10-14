@@ -14,7 +14,7 @@ class RepositoryImpl(val app: Context): Repository {
     @Inject
     lateinit var userPrefsDao: UserPrefsDao
 
-    override fun retrieveRestaurantTypes(): Array<String> {
+    override fun retrieveFoodTypes(): Array<String> {
         return app.resources.getStringArray(R.array.restaurant_types)
     }
 
