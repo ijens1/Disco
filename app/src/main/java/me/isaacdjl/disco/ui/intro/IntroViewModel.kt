@@ -3,6 +3,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import me.isaacdjl.disco.data.repository.Repository
 import java.util.*
 
@@ -86,5 +87,9 @@ class IntroViewModel(val repository: Repository): ViewModel() {
             }
 
         }
+    }
+
+    fun removeUserEatDate(date: Calendar) {
+        userEatTimes?.remove(date)
     }
 }

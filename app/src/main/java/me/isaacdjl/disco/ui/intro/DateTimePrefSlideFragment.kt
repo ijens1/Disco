@@ -60,9 +60,15 @@ class DateTimePrefSlideFragment: SlideFragment() {
         }
 
         dateTimeCalendarView.setOnDateChangedListener { _ , date: CalendarDay, selected: Boolean ->
-            val newDate = Calendar.getInstance()
-            newDate.set(date.year, date.month, date.day)
-            introViewModel.setCurrentDateSelected(newDate)
+            if (selected) {
+                val newDate = Calendar.getInstance()
+                newDate.set(date.year, date.month, date.day)
+                introViewModel.setCurrentDateSelected(newDate)
+                val timePickerFragment = TimePickerFragment()
+                timePickerFragment.show(fragmentManager, "TimePicker")
+            } else {
+                introViewModel.removeUserEatDate(date.calendar)
+            }
         }
     }
 
