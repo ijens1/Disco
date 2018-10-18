@@ -91,5 +91,6 @@ class IntroViewModel(private val repository: Repository): ViewModel() {
 
     fun removeUserEatDate(date: Calendar) {
         userEatTimes?.remove(date)
+        if (userEatTimes?.size == 0) userEatTimes = null
     }
 }

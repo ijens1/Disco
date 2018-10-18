@@ -81,4 +81,20 @@ class IntroViewModelTest {
 
         assertThat(introViewModel.retrieveUserEatDates()?.contains(userEats), `is`(true))
     }
+
+    @Test
+    fun eatTimeDeletion() {
+        val currDateSelected = Calendar.getInstance()
+
+        val newEatTime = Calendar.getInstance()
+        newEatTime.set(currDateSelected.get(Calendar.YEAR) - 1900, currDateSelected.get(Calendar.MONTH), currDateSelected.get(Calendar.DAY_OF_MONTH), 0, 0)
+
+        introViewModel.setCurrentDateSelected(currDateSelected)
+
+        introViewModel.addUserEatTime(0, 0)
+
+        introViewModel.removeUserEatDate(currDateSelected)
+
+        assertThat(introViewModel.retrieveUserEatDates(), `is`(nullValue()))
+    }
 }
