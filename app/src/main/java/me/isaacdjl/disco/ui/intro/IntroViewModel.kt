@@ -12,7 +12,7 @@ import java.util.*
  *
  * @author Isaac Jensen-Large
  */
-class IntroViewModel(val repository: Repository): ViewModel() {
+class IntroViewModel(private val repository: Repository): ViewModel() {
 
     private var allFoodTypes: MutableLiveData<Array<String>> = MutableLiveData()
 

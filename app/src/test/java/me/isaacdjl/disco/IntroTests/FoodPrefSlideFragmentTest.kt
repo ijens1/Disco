@@ -1,7 +1,6 @@
 package me.isaacdjl.disco.IntroTests
 
-import me.isaacdjl.disco.data.repository.Repository
-import me.isaacdjl.disco.data.repository.RepositoryImpl
+import me.isaacdjl.disco.ViewModelFactory
 import me.isaacdjl.disco.ui.intro.FoodPrefSlideFragment
 import me.isaacdjl.disco.ui.intro.IntroViewModel
 import org.hamcrest.CoreMatchers.`is`
@@ -11,6 +10,7 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -20,7 +20,7 @@ class FoodPrefSlideFragmentTest {
     lateinit var introViewModel: IntroViewModel
 
     @InjectMocks
-    lateinit var foodPrefSlideFragment: FoodPrefSlideFragment
+    var foodPrefSlideFragment = FoodPrefSlideFragment()
 
     @Test
     fun cantGoForwardWhenPrefsEmpty() {
