@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFA000</color>
-    <color name="colorPrimaryLight">#FFFD61</color>
-    <color name="colorPrimaryDark">#C67100</color>
-    <color name="colorSecondary">#FF6F00</color>
-    <color name="colorSecondaryLight">#FFA040</color>
-    <color name="colorSecondaryDark">#C43E00</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#000000</color>
-    <color name="colorAccent">#26C6DA</color>
-    <color name="slidesBackground">#FFCA28</color>
-    <color name="slidesBackgroundDark">#C79A00</color>
-    <color name="slideTitleColor">#000000</color>
-    <color name="slideHintColor">#66000000</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
 </resources>

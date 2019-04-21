@@ -8,20 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="CustomCalendarViewHeaderAppearance" parent="TextAppearance.MaterialCalendarWidget.Header">
-        <item name="android:textColor">@color/slideTitleColor</item>
-    </style>
-
-    <style name="CustomCalendarViewWeekdayAppearance" parent="TextAppearance.MaterialCalendarWidget.WeekDay">
-        <item name="android:textColor">@color/slideTitleColor</item>
-    </style>
-
-    <style name="MyTimePickerDialog" parent="Theme.AppCompat.Dialog">
-        <item name="android:timePickerDialogTheme">@style/MyTimePickerDialogTheme</item>
-    </style>
-
-    <style name="MyTimePickerDialogTheme" parent="AppTheme">
-        <item name="android:windowIsFloating">true</item>
-        <item name="colorAccent">@color/colorPrimaryDark</item>
-    </style>
 </resources>
